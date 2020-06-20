@@ -5,43 +5,45 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class PopupTest {
 
 	public static void main(String[] args) {
-		System.setProperty("webdriver.gecko.driver",
-				"C:\\Users\\imran\\Desktop\\SeleniumFiles\\geckodriver-v0.26.0-win64\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\Imran\\Desktop\\Selenium Files\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
 		// Launching the site.
 		driver.get("http://demo.guru99.com/popup.php");
 		driver.manage().window().maximize();
 
-		driver.findElement(By.xpath("//*[contains(@href,'popup.php')]")).click();
+		driver.findElement(By.xpath("/html/body/p/a")).click();
 
 		String MainWindow = driver.getWindowHandle();
 
-		// To handle all new opened window.
-		Set<String> s1 = driver.getWindowHandles();
-		Iterator<String> i1 = s1.iterator();
+		// Handle other windows
 
-		while (i1.hasNext()) {
-			String ChildWindow = i1.next();
+		Set<String> windows = driver.getWindowHandles();
+		Iterator<String> itiration = windows.iterator();
+
+		while (itiration.hasNext()) {
+
+			String ChildWindow = itiration.next();
 
 			if (!MainWindow.equalsIgnoreCase(ChildWindow)) {
-
-				// Switching to Child window
 				driver.switchTo().window(ChildWindow);
-				driver.findElement(By.name("emailid")).sendKeys("gaurav.3n@gmail.com");
-
-				driver.findElement(By.name("btnLogin")).click();
-
-				// Closing the Child Window.
+				driver.findElement(By.xpath("/html/body/form/table/tbody/tr[5]/td[2]/input"))
+						.sendKeys("gaurav.3n@gmail.com");
+				driver.findElement(By.xpath("/html/body/form/table/tbody/tr[6]/td[2]/input")).click();
 				driver.close();
+				
+				System.out.println("Popped Up page handled");
 			}
 		}
-		// Switching to Parent window i.e Main Window.
+
 		driver.switchTo().window(MainWindow);
+		
+		System.out.println("Returned to main window");
 
 	}
 

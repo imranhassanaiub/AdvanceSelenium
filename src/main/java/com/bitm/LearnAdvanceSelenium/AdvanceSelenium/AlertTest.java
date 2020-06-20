@@ -3,14 +3,14 @@ package com.bitm.LearnAdvanceSelenium.AdvanceSelenium;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class AlertTest {
 
 	public static void main(String[] args) {
-		System.setProperty("webdriver.gecko.driver",
-				"C:\\Users\\imran\\Desktop\\SeleniumFiles\\geckodriver-v0.26.0-win64\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\Imran\\Desktop\\Selenium Files\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
 		driver.get("http://demo.guru99.com/test/delete_customer.php");
 		driver.findElement(By.name("cusid")).sendKeys("53920");
 		driver.findElement(By.name("submit")).submit();
